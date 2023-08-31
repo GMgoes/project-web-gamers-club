@@ -1,47 +1,36 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <DataList :items="itemsFromAPI" />
+  <Foot />
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
+<script>
+import axios from 'axios'
+import DataList from './components/DataList.vue'
+import Foot from './components/Foot.vue'
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+export default {
+  name: 'App',
+  components: {
+    DataList,
+    Foot
+  },
+  data() {
+    return {
+      itemsFromAPI: []
+    }
+  },
+  created() {
+    this.fetchData()
+  },
+  methods: {
+    async fetchData() {
+      try {
+        const response = await axios.get('http://localhost:8080/games?size=25')
+        this.itemsFromAPI = response.data.content
+      } catch (error) {
+        console.error('Erro ao buscar dados:', error)
+      }
+    }
   }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
 }
-</style>
+</script>
