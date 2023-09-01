@@ -1,5 +1,5 @@
 <template>
-  <div><h2>Lista de Jogos</h2></div>
+  <div style="margin-top: 10px"><h2>Lista de Jogos</h2></div>
   <div style="display: flex; margin-top: 5rem; flex-wrap: wrap; justify-content: space-around">
     <div
       v-for="item in items"

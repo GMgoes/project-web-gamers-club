@@ -1,4 +1,5 @@
 <template>
+  <search-bar @search="fetchResults"></search-bar>
   <DataList :items="itemsFromAPI" />
   <Foot />
 </template>
@@ -7,12 +8,14 @@
 import axios from 'axios'
 import DataList from './components/DataList.vue'
 import Foot from './components/Foot.vue'
+import SearchBar from './components/SearchBar.vue'
 
 export default {
   name: 'App',
   components: {
     DataList,
-    Foot
+    Foot,
+    SearchBar
   },
   data() {
     return {
@@ -29,6 +32,20 @@ export default {
         this.itemsFromAPI = response.data.content
       } catch (error) {
         console.error('Erro ao buscar dados:', error)
+      }
+    },
+    async fetchResults(query) {
+      if (query != '') {
+        try {
+          const response = await axios.get(
+            `http://localhost:8080/games/search/PC?game_name${query}`
+          )
+          this.itemsFromAPI = response.data.content
+        } catch (error) {
+          console.error('Erro ao buscar dados:', error)
+        }
+      } else {
+        this.fetchData()
       }
     }
   }
