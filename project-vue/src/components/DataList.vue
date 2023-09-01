@@ -1,13 +1,13 @@
 <template>
-  <div style="margin-top: 10px"><h2>Lista de Jogos</h2></div>
+  <div style="margin-top: 10px; color: aliceblue"><h2>Lista de Jogos</h2></div>
   <div style="display: flex; margin-top: 5rem; flex-wrap: wrap; justify-content: space-around">
     <div
       v-for="item in items"
       v-bind:key="item.id"
-      style="margin-left: 5px; margin-top: 5px; width: 300px; height: 500px"
+      style="margin-left: 5px; margin-top: 5px; width: 300px; height: 500px; color: aliceblue"
     >
       <div style="display: flex; justify-content: center; margin-top: 5px">
-        <img v-bind:src="item.thumbnail" style="width: 200px; height: 250px" />
+        <img v-bind:src="item.thumbnail" style="width: 200px; height: 250px; border-radius: 5px" />
       </div>
       <div style="margin-top: 10px">
         <div style="display: flex; justify-content: center">
